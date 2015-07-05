@@ -2,7 +2,7 @@
 This is a bot written in Python, using the tweepy and twitter APIs. It has a user-interface and a clean runtime to automate Twitter activity.
 
 # Why
-I noticed Twitter has some intense rate-limiting and lately, it has
+I noticed Twitter has some intense rate-limiting and lately it has
 taken bits of innovation to get around this for the general sake of
 automating a low-frequency bot.
 
