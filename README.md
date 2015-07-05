@@ -13,6 +13,8 @@ average person can enjoy the Twitter bot and change its functionality
 without worrying about the goal at hand which is to leave it alone and have it do what is expected.
 
 # Use
+It will prompt you for necessary information such as your Twitter API tokens and your screen name. These variables are 
+vital for functionality. Have them ready.
 Use this how you want. Editing intervals may break something or get you rate-limited. 
 
 # Copyright
