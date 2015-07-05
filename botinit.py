@@ -5,15 +5,15 @@ import tweepy, time, sys, os
 
 curdir = os.path.dirname(os.path.realpath(__file__))
 
-with open(curdir + '\OAUTH.txt', 'r') as f:
+# This is initialization for Twitter OAUTH
+with open(os.path.join(curdir, 'OAUTH.txt')) as f:
     words = f.readlines()
     data = [w.replace('\n', '') for w in words]
  
-# This is initialization for Twitter OAUTH
-CONSUMER_KEY = data[0]#keep the quotes, replace this with your consumer key
-CONSUMER_SECRET = data[1]#keep the quotes, replace this with your consumer secret key
-ACCESS_KEY = data[2]#keep the quotes, replace this with your access token
-ACCESS_SECRET = data[3]#keep the quotes, replace this with your access token secret
+CONSUMER_KEY = data[0]
+CONSUMER_SECRET = data[1]
+ACCESS_KEY = data[2]
+ACCESS_SECRET = data[3]
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
