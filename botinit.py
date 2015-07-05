@@ -3,10 +3,8 @@
  
 import tweepy, time, sys, os
 
-curdir = os.path.dirname(os.path.realpath(__file__))
-
 # This is initialization for Twitter OAUTH
-with open(os.path.join(curdir, 'OAUTH.txt')) as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'OAUTH.txt')) as f:
     words = f.readlines()
     data = [w.replace('\n', '') for w in words]
  
@@ -86,6 +84,6 @@ def menu():
 
 user_handle = raw_input('What is your Twitter handle?\n')
 if len(user_handle) < 1:
-    print('Invalid username. Aborting...')
+    print(' Invalid username. Aborting...')
 else:
     menu()
