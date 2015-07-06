@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
  
-import tweepy, time, sys, os
+import tweepy, time, os, repeater
 
 # This is initialization for Twitter OAUTH
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'OAUTH.txt')) as f:
     words = f.readlines()
     data = [w.replace('\n', '') for w in words]
- 
+
 CONSUMER_KEY = data[0]
 CONSUMER_SECRET = data[1]
 ACCESS_KEY = data[2]
@@ -62,11 +62,12 @@ def menu():
         print("""
         1. Post status.
         2. Favoriting.
-        3. Hashtag/Mention follower.
+        3. Hashtag follower.
         4. List followers/unfollow.
-        5. Exit operation.
+        5. Basic mention repeater.
+        6. Exit operation.
         """)
-        ans=raw_input("What would you like to do? [1-5]: ")
+        ans=raw_input("What would you like to do? [1-6]: ")
         if ans=="1":
             print("\n Post status.")
             tweeter()
@@ -78,6 +79,9 @@ def menu():
         elif ans=="4":
             list()
         elif ans=="5":
+            # This part needs to run repeater.py
+            menu()
+        elif ans=="6":
             print("\n Exiting...")
             ans = None
         else:
