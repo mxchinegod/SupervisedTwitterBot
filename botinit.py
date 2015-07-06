@@ -40,7 +40,7 @@ def list():
         n += 1
         print user.screen_name
         int(n)
-    print('\n'), n, ('followers.\n')
+    print('\n'), n + 1, ('followers.\n')
     time.sleep(1)
     # Mutual destruction
     isitmutual = raw_input('Do you want to unfollow those who do not follow you currently? [Y/N]: ')
@@ -52,8 +52,9 @@ def list():
                 if f not in followers:
                     print "Unfollow {0}?".format(api.get_user(f).screen_name)
                     if raw_input("Y/N?") == 'y' or 'Y':
-                        api.destroy_friendship(f)    
-        
+                        api.destroy_friendship(f)
+    else:
+        menu()
 # This is the menu
 def menu():
     ans=True
