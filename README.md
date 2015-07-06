@@ -1,5 +1,5 @@
-# SupervisedTwitterBot
 <img src="http://i.imgur.com/pzCqPZw.jpg">
+# SupervisedTwitterBot
 
 This is a bot written in Python, using the tweepy and twitter APIs. It has a user-interface and a clean runtime to automate Twitter activity.
 
