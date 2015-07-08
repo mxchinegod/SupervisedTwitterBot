@@ -16,9 +16,9 @@ without worrying about the goal at hand which is to leave it alone and have it d
 
 # Use
 <img src="http://i.imgur.com/S7Hi7AH.png" width="350px" style="float:left;">
-<p style="float:left;">It will prompt you for necessary information such your screen name but you will need to enter your API and access tokens manually into programdirectory/"OAUTH.txt". These variables are 
+<div style="float:right;">It will prompt you for necessary information such your screen name but you will need to enter your API and access tokens manually into programdirectory/"OAUTH.txt". These variables are 
 vital for functionality. Have them ready.
-Use this how you want. Editing intervals may break something or get you rate-limited. </p>
+Use this how you want. Editing intervals may break something or get you rate-limited. </div>
 
 # Copyright
 I don't own any API or data this mines and uses. 
