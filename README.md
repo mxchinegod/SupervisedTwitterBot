@@ -14,7 +14,7 @@ will make an attempt to keep up and update this repository so that the
 average person can enjoy the Twitter bot and change its functionality
 without worrying about the goal at hand which is to leave it alone and have it do what is expected.
 
-<img src="http://i.imgur.com/S7Hi7AH.png">
+<img src="http://i.imgur.com/S7Hi7AH.png" width="350px">
 # Use
 It will prompt you for necessary information such your screen name but you will need to enter your API and access tokens manually into programdirectory/"OAUTH.txt". These variables are 
 vital for functionality. Have them ready.
