@@ -17,6 +17,8 @@ without worrying about the goal at hand which is to leave it alone and have it d
 # Use
 <img src="http://i.imgur.com/S7Hi7AH.png" width="350px">
 
+The runtime photo above is just to show what the commercial version would look like. I'm making one with a authentication system to verify that the user has paid for the software linking to a server I own on GoDaddy. The project file will show this over time as I add SQL connection. A paid version will be released eventually.
+
 It will prompt you for necessary information such your screen name but you will need to enter your API and access tokens manually into programdirectory/"OAUTH.txt". These variables are 
 vital for functionality. Have them ready.
 Use this how you want. Editing intervals may break something or get you rate-limited.
