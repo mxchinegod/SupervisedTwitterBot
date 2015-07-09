@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-""" This version of the program is almost completely nonfunctioning and I am only uploading it in order keep track of things. This code as you see it now is also mostly the work of github user rhiever/TwitterFollowBot. """
-
 from __future__ import print_function
 from twitter import Twitter, OAuth, TwitterHTTPError
 import os
@@ -10,11 +8,6 @@ import random
 
 
 class TwitterBot:
-
-    """
-        Bot that automates several actions on Twitter, such as following users
-        and favoriting tweets.
-    """
 
     def __init__(self, config_file="OAUTH.txt"):
         # this variable contains the configuration for the bot
