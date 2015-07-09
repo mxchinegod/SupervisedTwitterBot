@@ -46,3 +46,17 @@ repeater.pyc
 twitter-repeater-master.zip
 *.zip
 ProtestMining/twittermining.py
+*.pyc
+build/bdist.win-amd64/winexe/temp/bz2.py
+*.pyd
+setup.py
+build/bdist.win-amd64/winexe/temp/_hashlib.py
+build/bdist.win-amd64/winexe/temp/select.py
+build/bdist.win-amd64/winexe/temp/win32evtlog.py
+*.dll
+build/bdist.win-amd64/winexe/temp/_ssl.py
+build/bdist.win-amd64/winexe/temp/_socket.py
+build/bdist.win-amd64/winexe/temp/_ctypes.py
+build/bdist.win-amd64/winexe/temp/unicodedata.py
+build/bdist.win-amd64/winexe/temp/win32api.py
+dist/botinit.exe
