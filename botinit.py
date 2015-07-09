@@ -436,11 +436,10 @@ class TwitterBot:
 
         return self.TWITTER_CONNECTION.statuses.update(status=message)
         
-class menu:
+class menu():
     # This is the menu
-    def menu():
-        ans=True
-        while ans:
+    def Menu(self):
+        while True:
                 print("""
                 1. Post status.
                 2. Favoriting.
@@ -474,9 +473,9 @@ class menu:
                 else:
                     print("\n Not a bot command.")
 
-class init:
-    user_handle = raw_input('What is your Twitter handle?\n')
-    if len(user_handle) < 1:
-        print(' Invalid username. Aborting...')
-    else:
-        menu()
+user_handle = raw_input('What is your Twitter handle?\n')
+if len(user_handle) < 1:
+    print(' Invalid username. Aborting...')
+else:
+    menuinit = menu()
+    menuinit.Menu()
