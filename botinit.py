@@ -5,11 +5,10 @@ import os
 import sys
 import time
 import random
+import threading
 
-
-class TwitterBot:
-
-    def __init__(self, config_file="OAUTH.txt"):
+class TwitterBot():
+    def __init__(self, config_file=os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt"):
         # this variable contains the configuration for the bot
         self.BOT_CONFIG = {}
 
@@ -43,7 +42,7 @@ class TwitterBot:
 
         return wait_time
 
-    def bot_setup(self, config_file="config.txt"):
+    def bot_setup(self, config_file=os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt"):
         """
             Reads in the bot configuration file and sets up the bot.
 
@@ -70,7 +69,7 @@ class TwitterBot:
 
         # make sure that the config file specifies all required parameters
         required_parameters = ["OAUTH_TOKEN", "OAUTH_SECRET", "CONSUMER_KEY",
-                               "CONSUMER_SECRET", "TWITTER_HANDLE",
+                               "CONSUMER_SECRET",
                                "ALREADY_FOLLOWED_FILE",
                                "FOLLOWERS_FILE", "FOLLOWS_FILE"]
 
@@ -122,7 +121,7 @@ class TwitterBot:
         """
 
         # sync the user's followers (accounts following the user)
-        followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=self.BOT_CONFIG["TWITTER_HANDLE"])
+        followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=user_handle)
         followers = set(followers_status["ids"])
         next_cursor = followers_status["next_cursor"]
 
@@ -131,7 +130,7 @@ class TwitterBot:
                 out_file.write("%s\n" % (follower))
 
         while next_cursor != 0:
-            followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=self.BOT_CONFIG["TWITTER_HANDLE"],
+            followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=user_handle,
                                                                      cursor=next_cursor)
             followers = set(followers_status["ids"])
             next_cursor = followers_status["next_cursor"]
@@ -422,11 +421,8 @@ class TwitterBot:
                 self.TWITTER_CONNECTION.mutes.users.destroy(user_id=user_id)
                 print("Unmuted %d" % (user_id), file=sys.stdout)
 
-    def send_tweet(self, message):
-        """
-            Posts a tweet.
-        """
-
+    def send_tweet(self):
+        message = raw_input("What is your tweet?: ")
         return self.TWITTER_CONNECTION.statuses.update(status=message)
         
 class menu():
@@ -444,8 +440,8 @@ class menu():
                 ans=raw_input("What would you like to do? [1-6]: ")
                 if ans=="1":
                     print("\n Post status.")
-                    message = raw_input("What would you like to say? :")
-                    TwitterBot.send_tweet(message)
+                    tempbot = TwitterBot()
+                    tempbot.send_tweet()
                 elif ans=="2":
                     print("\n Turn favoriting on.")
                     hashtag=raw_input('\n Hashtag? :')
@@ -462,7 +458,7 @@ class menu():
                     menu()
                 elif ans=="6":
                     print("\n Exiting...")
-                    ans = None
+                    sys.exit()
                 else:
                     print("\n Not a bot command.")
 
