@@ -7,7 +7,7 @@ import time
 import random
 
 class TwitterBot(object):
-    def __init__(self, config_file=str(os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt")):
+    def __init__(self, config_file=str(os.path.dirname(os.path.realpath(__file__)) + "/OAUTH.txt")):
         # this variable contains the configuration for the bot
         self.BOT_CONFIG = {}
 
@@ -41,7 +41,7 @@ class TwitterBot(object):
 
         return wait_time
 
-    def bot_setup(self, config_file=str(os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt")):
+    def bot_setup(self, config_file=str(os.path.dirname(os.path.realpath(__file__)) + "/OAUTH.txt")):
 
         with open(config_file, "r") as in_file:
             for line in in_file:
