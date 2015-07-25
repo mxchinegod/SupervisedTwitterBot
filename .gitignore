@@ -60,3 +60,7 @@ build/bdist.win-amd64/winexe/temp/_ctypes.py
 build/bdist.win-amd64/winexe/temp/unicodedata.py
 build/bdist.win-amd64/winexe/temp/win32api.py
 dist/botinit.exe
+apiattempt.py
+following.txt
+followers.txt
+already-followed.txt

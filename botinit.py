@@ -5,10 +5,9 @@ import os
 import sys
 import time
 import random
-import threading
 
-class TwitterBot():
-    def __init__(self, config_file=os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt"):
+class TwitterBot(object):
+    def __init__(self, config_file=str(os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt")):
         # this variable contains the configuration for the bot
         self.BOT_CONFIG = {}
 
@@ -42,14 +41,7 @@ class TwitterBot():
 
         return wait_time
 
-    def bot_setup(self, config_file=os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt"):
-        """
-            Reads in the bot configuration file and sets up the bot.
-
-            Defaults to config.txt if no configuration file is specified.
-
-            If you want to modify the bot configuration, edit your config.txt.
-        """
+    def bot_setup(self, config_file=str(os.path.dirname(os.path.realpath(__file__)) + "\\OAUTH.txt")):
 
         with open(config_file, "r") as in_file:
             for line in in_file:
@@ -69,7 +61,7 @@ class TwitterBot():
 
         # make sure that the config file specifies all required parameters
         required_parameters = ["OAUTH_TOKEN", "OAUTH_SECRET", "CONSUMER_KEY",
-                               "CONSUMER_SECRET",
+                               "CONSUMER_SECRET", "TWITTER_HANDLE",
                                "ALREADY_FOLLOWED_FILE",
                                "FOLLOWERS_FILE", "FOLLOWS_FILE"]
 
@@ -121,7 +113,7 @@ class TwitterBot():
         """
 
         # sync the user's followers (accounts following the user)
-        followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=user_handle)
+        followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=self.BOT_CONFIG["TWITTER_HANDLE"])
         followers = set(followers_status["ids"])
         next_cursor = followers_status["next_cursor"]
 
@@ -130,7 +122,7 @@ class TwitterBot():
                 out_file.write("%s\n" % (follower))
 
         while next_cursor != 0:
-            followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=user_handle,
+            followers_status = self.TWITTER_CONNECTION.followers.ids(screen_name=self.BOT_CONFIG["TWITTER_HANDLE"],
                                                                      cursor=next_cursor)
             followers = set(followers_status["ids"])
             next_cursor = followers_status["next_cursor"]
@@ -292,7 +284,7 @@ class TwitterBot():
 
     def auto_follow_followers(self,count=None):
         """
-            Follows back everyone who's followed you.
+            Follows back everyone who has followed you.
         """
 
         following = self.get_follows_list()
@@ -440,11 +432,10 @@ class menu():
                 ans=raw_input("What would you like to do? [1-6]: ")
                 if ans=="1":
                     print("\n Post status.")
-                    tempbot = TwitterBot()
-                    tempbot.send_tweet()
+                    my_bot = TwitterBot()
+                    my_bot.send_tweet()
                 elif ans=="2":
                     print("\n Turn favoriting on.")
-                    hashtag=raw_input('\n Hashtag? :')
                     # This part needs to be programmed.
                     menu()
                 elif ans=="3":
@@ -452,7 +443,10 @@ class menu():
                     # This part needs to be programmed.
                     menu()
                 elif ans=="4":
-                    TwitterBot.get_follows_list()
+                    bot.bot_setup()
+                    bot.sync_follows()
+                    followers = bot.get_followers_list()
+                    print(followers)
                 elif ans=="5":
                     # This part needs to be linked with chooter/twitter-repeater.git
                     menu()
@@ -461,10 +455,6 @@ class menu():
                     sys.exit()
                 else:
                     print("\n Not a bot command.")
-
-user_handle = raw_input('What is your Twitter handle?\n')
-if len(user_handle) < 1:
-    print(' Invalid username. Aborting...')
-else:
-    menuinit = menu()
-    menuinit.Menu()
+bot = TwitterBot()
+menuinit = menu()
+menuinit.Menu()
