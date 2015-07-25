@@ -443,7 +443,7 @@ class menu():
                     # This part needs to be programmed.
                     menu()
                 elif ans=="4":
-                    bot.bot_setup()
+                    bot = TwitterBot()
                     bot.sync_follows()
                     followers = bot.get_followers_list()
                     print(followers)
@@ -455,6 +455,5 @@ class menu():
                     sys.exit()
                 else:
                     print("\n Not a bot command.")
-bot = TwitterBot()
 menuinit = menu()
 menuinit.Menu()
