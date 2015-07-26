@@ -193,12 +193,12 @@ class TwitterBot(object):
 
         return self.TWITTER_CONNECTION.search.tweets(q=phrase, result_type=result_type, count=count)
 
-    def auto_fav(self, phrase, count=100, result_type="recent"):
+    def auto_fav(self, phrase, favcount, result_type="recent"):
         """
             Favorites tweets that match a phrase (hashtag, word, etc.).
         """
 
-        result = self.search_tweets(phrase, count, result_type)
+        result = self.search_tweets(phrase, favcount, result_type)
 
         for tweet in result["statuses"]:
             try:
@@ -220,12 +220,12 @@ class TwitterBot(object):
                 if "you have already favorited this status" not in str(api_error).lower():
                     print("Error: %s" % (str(api_error)), file=sys.stderr)
 
-    def auto_rt(self, phrase, count=100, result_type="recent"):
+    def auto_rt(self, phrase, rtcount, result_type="recent"):
         """
             Retweets tweets that match a phrase (hashtag, word, etc.).
         """
 
-        result = self.search_tweets(phrase, count, result_type)
+        result = self.search_tweets(phrase, rtcount, result_type)
 
         for tweet in result["statuses"]:
             try:
@@ -246,12 +246,12 @@ class TwitterBot(object):
 
                 print("Error: %s" % (str(api_error)), file=sys.stderr)
 
-    def auto_follow(self, phrase, count=100, result_type="recent"):
+    def auto_follow(self, phrase, hashcount, result_type="recent"):
         """
             Follows anyone who tweets about a phrase (hashtag, word, etc.).
         """
 
-        result = self.search_tweets(phrase, count, result_type)
+        result = self.search_tweets(phrase, hashcount, result_type)
         following = self.get_follows_list()
         do_not_follow = self.get_do_not_follow_list()
 
@@ -436,20 +436,28 @@ class menu():
                     my_bot.send_tweet()
                 elif ans=="2":
                     print("\n Turn favoriting on.")
-                    # This part needs to be programmed.
-                    menu()
+                    favterm = raw_input("What is the favoriting term?: ")
+                    favcount = raw_input("How many posts?: ")
+                    bot = TwitterBot()
+                    bot.auto_fav(favterm,int(favcount))
                 elif ans=="3":
                     print("\n Turn hashtag follow on.")
-                    # This part needs to be programmed.
-                    menu()
+                    hashtag = raw_input("What is the phrase or hashtag you want to follow based on?: ")
+                    hashcount = raw_input("How many posts?: ")
+                    bot = TwitterBot()
+                    bot.auto_follow(hashtag,int(hashcount))
                 elif ans=="4":
+                    print("\n Printing follower IDs:")
                     bot = TwitterBot()
                     bot.sync_follows()
                     followers = bot.get_followers_list()
                     print(followers)
                 elif ans=="5":
-                    # This part needs to be linked with chooter/twitter-repeater.git
-                    menu()
+                    print("\n Turn auto-retweet on.")
+                    hashphrase = raw_input("What is the phrase or hashtag you want to retweet based on?: ")
+                    rtcount = raw_input("How many posts?: ")
+                    bot = TwitterBot()
+                    bot.auto_rt(hashphrase,int(rtcount))
                 elif ans=="6":
                     print("\n Exiting...")
                     sys.exit()
