@@ -42,6 +42,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 repeater.pyc
+pyinstall.bat
 twitter-repeater-master.zip
 *.zip
 ProtestMining/twittermining.py
@@ -49,6 +50,7 @@ ProtestMining/twittermining.py
 build/bdist.win-amd64/winexe/temp/bz2.py
 *.pyd
 setup.py
+DRMSQL.txt
 build/bdist.win-amd64/winexe/temp/_hashlib.py
 build/bdist.win-amd64/winexe/temp/select.py
 build/bdist.win-amd64/winexe/temp/win32evtlog.py
@@ -64,3 +66,4 @@ OAUTH.txt
 following.txt
 followers.txt
 already-followed.txt
+Snakey.spec

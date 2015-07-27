@@ -5,7 +5,11 @@ import os
 import sys
 import time
 import random
+import mysql.connector
+from mysql.connector import errorcode
+from progress.spinner import Spinner
 
+# TWITTER BOT
 class TwitterBot(object):
     def __init__(self, config_file=str(os.path.dirname(os.path.realpath(__file__)) + "/OAUTH.txt")):
         # this variable contains the configuration for the bot
@@ -416,7 +420,8 @@ class TwitterBot(object):
     def send_tweet(self):
         message = raw_input("What is your tweet?: ")
         return self.TWITTER_CONNECTION.statuses.update(status=message)
-        
+
+# MENU CLASS  
 class menu():
     # This is the menu
     def Menu(self):
@@ -429,21 +434,21 @@ class menu():
                 5. Basic mention repeater.
                 6. Exit operation.
                 """)
-                ans=raw_input("What would you like to do? [1-6]: ")
+                ans=raw_input("     What would you like to do? [1-6]: ")
                 if ans=="1":
                     print("\n Post status.")
                     my_bot = TwitterBot()
                     my_bot.send_tweet()
                 elif ans=="2":
                     print("\n Turn favoriting on.")
-                    favterm = raw_input("What is the favoriting term?: ")
-                    favcount = raw_input("How many posts?: ")
+                    favterm = raw_input(" What is the favoriting term?: ")
+                    favcount = raw_input(" How many posts?: \n")
                     bot = TwitterBot()
                     bot.auto_fav(favterm,int(favcount))
                 elif ans=="3":
                     print("\n Turn hashtag follow on.")
-                    hashtag = raw_input("What is the phrase or hashtag you want to follow based on?: ")
-                    hashcount = raw_input("How many posts?: ")
+                    hashtag = raw_input(" What is the phrase or hashtag you want to follow based on?: ")
+                    hashcount = raw_input(" How many posts?: \n")
                     bot = TwitterBot()
                     bot.auto_follow(hashtag,int(hashcount))
                 elif ans=="4":
@@ -452,10 +457,16 @@ class menu():
                     bot.sync_follows()
                     followers = bot.get_followers_list()
                     print(followers)
+                    opt = raw_input(" Unfollow those who do not follow back? [Y/N]: ")
+                    if opt == ("Y" or "y"):
+                        bot = TwitterBot()
+                        bot.auto_unfollow_nonfollowers()
+                    else:
+                        menu.Menu()
                 elif ans=="5":
                     print("\n Turn auto-retweet on.")
-                    hashphrase = raw_input("What is the phrase or hashtag you want to retweet based on?: ")
-                    rtcount = raw_input("How many posts?: ")
+                    hashphrase = raw_input(" What is the phrase or hashtag you want to retweet based on?: ")
+                    rtcount = raw_input(" How many posts?: \n")
                     bot = TwitterBot()
                     bot.auto_rt(hashphrase,int(rtcount))
                 elif ans=="6":
@@ -463,5 +474,33 @@ class menu():
                     sys.exit()
                 else:
                     print("\n Not a bot command.")
+                    
+# DRM & INITIALIZATION BLOCK
+print("\n     Snakey Login")
+username = raw_input(" User: ")
+password = raw_input(" Password: ")
+drm = mysql.connector.connect(user='', password='',
+                          host='',
+                          database='')
+try:
+    cursor = drm.cursor(buffered=True)
+    query0 = ("SELECT " + username + " FROM Users ")
+    query1 = ("SELECT `" + password + "` FROM Passwords ")
+    cursor.execute(query0)
+    cursor.execute(query1)
+    time.sleep(.1)
+    sync = TwitterBot()
+    sync.sync_follows()
+    cursor.close()
+except mysql.connector.Error as err:
+    if err.errno == errorcode.ER_BAD_FIELD_ERROR:
+        print("\n     Incorrect username and/or password.")
+        cursor.close()
+        time.sleep(1)
+        sys.exit()
+    else:
+        print(err)
+print ("\n     Connection Established.\n")
+time.sleep(1)
 menuinit = menu()
 menuinit.Menu()
