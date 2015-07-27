@@ -440,14 +440,14 @@ class menu():
                     my_bot.send_tweet()
                 elif ans=="2":
                     print("\n Turn favoriting on.")
-                    favterm = raw_input(" What is the favoriting term?: ")
-                    favcount = raw_input(" How many posts?: \n")
+                    favterm = raw_input("     What is the favoriting term?: ")
+                    favcount = raw_input("     How many posts?: ")
                     bot = TwitterBot()
                     bot.auto_fav(favterm,int(favcount))
                 elif ans=="3":
                     print("\n Turn hashtag follow on.")
-                    hashtag = raw_input(" What is the phrase or hashtag you want to follow based on?: ")
-                    hashcount = raw_input(" How many posts?: \n")
+                    hashtag = raw_input("     What is the phrase or hashtag you want to follow based on?: ")
+                    hashcount = raw_input("     How many posts?: ")
                     bot = TwitterBot()
                     bot.auto_follow(hashtag,int(hashcount))
                 elif ans=="4":
@@ -456,7 +456,7 @@ class menu():
                     bot.sync_follows()
                     followers = bot.get_followers_list()
                     print(followers)
-                    opt = raw_input(" Unfollow those who do not follow back? [Y/N]: ")
+                    opt = raw_input("     Unfollow those who do not follow back? [Y/N]: ")
                     if opt == ("Y" or "y"):
                         bot = TwitterBot()
                         bot.auto_unfollow_nonfollowers()
@@ -464,8 +464,8 @@ class menu():
                         menu.Menu()
                 elif ans=="5":
                     print("\n Turn auto-retweet on.")
-                    hashphrase = raw_input(" What is the phrase or hashtag you want to retweet based on?: ")
-                    rtcount = raw_input(" How many posts?: \n")
+                    hashphrase = raw_input("     What is the phrase or hashtag you want to retweet based on?: ")
+                    rtcount = raw_input("     How many posts?: ")
                     bot = TwitterBot()
                     bot.auto_rt(hashphrase,int(rtcount))
                 elif ans=="6":
