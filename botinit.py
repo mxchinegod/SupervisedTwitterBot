@@ -7,7 +7,6 @@ import time
 import random
 import mysql.connector
 from mysql.connector import errorcode
-from progress.spinner import Spinner
 
 # TWITTER BOT
 class TwitterBot(object):
