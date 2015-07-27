@@ -460,8 +460,6 @@ class menu():
                     if opt == ("Y" or "y"):
                         bot = TwitterBot()
                         bot.auto_unfollow_nonfollowers()
-                    else:
-                        menu.Menu()
                 elif ans=="5":
                     print("\n Turn auto-retweet on.")
                     hashphrase = raw_input("     What is the phrase or hashtag you want to retweet based on?: ")
@@ -476,8 +474,8 @@ class menu():
                     
 # DRM & INITIALIZATION BLOCK
 print("\n     Snakey Login")
-username = raw_input(" User: ")
-password = raw_input(" Password: ")
+username = raw_input("     User: ")
+password = raw_input("     Password: ")
 drm = mysql.connector.connect(user='', password='',
                           host='',
                           database='')
@@ -493,13 +491,13 @@ try:
     cursor.close()
 except mysql.connector.Error as err:
     if err.errno == errorcode.ER_BAD_FIELD_ERROR:
-        print("\n     Incorrect username and/or password.")
+        print("\n Incorrect username and/or password.")
         cursor.close()
         time.sleep(1)
         sys.exit()
     else:
         print(err)
-print ("\n     Connection Established.\n")
+print ("\n Connection Established.\n")
 time.sleep(1)
 menuinit = menu()
 menuinit.Menu()
