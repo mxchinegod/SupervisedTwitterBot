@@ -417,9 +417,9 @@ class TwitterBot(object):
                 print("Unmuted %d" % (user_id), file=sys.stdout)
 
     def send_tweet(self):
-        message = raw_input("What is your tweet?: ")
+        message = raw_input("     What is your tweet?: ")
         return self.TWITTER_CONNECTION.statuses.update(status=message)
-
+        
 # MENU CLASS  
 class menu():
     # This is the menu
@@ -473,7 +473,7 @@ class menu():
                     print("\n Not a bot command.")
                     
 # DRM & INITIALIZATION BLOCK
-print("\n     Snakey Login")
+print("\n     Snakey Login (v. 1.0.3)")
 username = raw_input("     User: ")
 password = raw_input("     Password: ")
 drm = mysql.connector.connect(user='', password='',
@@ -485,7 +485,6 @@ try:
     query1 = ("SELECT `" + password + "` FROM Passwords ")
     cursor.execute(query0)
     cursor.execute(query1)
-    time.sleep(.1)
     sync = TwitterBot()
     sync.sync_follows()
     cursor.close()
