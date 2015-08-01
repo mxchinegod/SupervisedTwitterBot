@@ -571,14 +571,12 @@ try:
     sync = TwitterBot()
     sync.sync_follows()
     cursor.close()
-except mysql.connector.Error as err:
-    if err.errno == errorcode.ER_BAD_FIELD_ERROR:
-        print("\n Incorrect username and/or password.")
-        cursor.close()
-        time.sleep(1)
-        sys.exit()
-    else:
-        print(err)
+except mysql.connector.Error as e:                # errno, sqlstate, msg values
+  print("\n Incorrect username and/or password.")
+  cursor.close()
+  time.sleep(1)
+  sys.exit()
+
 print ("\n Connection Established.\n")
 time.sleep(1)
 menuinit = menu()
