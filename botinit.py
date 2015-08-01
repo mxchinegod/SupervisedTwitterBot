@@ -8,7 +8,6 @@ import random
 import mysql.connector
 from mysql.connector import errorcode
 import json
-import matplotlib.pyplot as plt
 import threading
 
 # TWITTER BOT
