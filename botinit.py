@@ -9,6 +9,7 @@ import mysql.connector
 from mysql.connector import errorcode
 import json
 import matplotlib.pyplot as plt
+import threading
 
 # TWITTER BOT
 class TwitterBot(object):
@@ -491,39 +492,10 @@ class TwitterBot(object):
         pt.max_width['Text'] = 50
         pt.align= 'l'
         print(pt)
-        
-        word_counts = sorted(Counter(words).values(), reverse=True)
-        
-        plt.loglog(word_counts)
-        plt.ylabel("Freq")
-        plt.xlabel("Word Rank")
-        plt.show()
-        for label, data in (('Words', words),
-                            ('Screen Names', screen_names),
-                            ('Hashtags', hashtags)):
-                            
-            # Build a frequency map for each set of data
-            # and plot the values
-            c = Counter(data)
-            plt.hist(c.values())
-            
-            # Add a title and y-label ...
-            plt.title(label)
-            plt.ylabel("Number of items in bin")
-            plt.xlabel("Bins (number of times an item appeared)")
-            
-            # ... and display as a new figure
-            plt.figure()
-        
         # Using underscores while unpacking values in
         # a tuple is idiomatic for discarding them
         counts = [count for count, _, _ in retweets]
-        
-        plt.hist(counts)
-        plt.title("Retweets")
-        plt.xlabel('Bins (number of times retweeted)')
-        plt.ylabel('Number of tweets in bin')
-        plt.show()
+    
         print(counts)
         
 # MENU CLASS  
@@ -574,8 +546,10 @@ class menu():
                     bot = TwitterBot()
                     bot.auto_rt(hashphrase,int(rtcount))
                 elif ans=="6":
-                    bot = TwitterBot()
-                    bot.mine()
+                    inst = TwitterBot()
+                    bot = threading.Thread(target=inst.mine())
+                    bot.start()
+                    bot.join()
                 elif ans=="7":
                     print("\n Exiting...")
                     sys.exit()
