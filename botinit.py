@@ -421,25 +421,16 @@ class TwitterBot(object):
         message = raw_input("     What is your tweet?: ")
         return self.TWITTER_CONNECTION.statuses.update(status=message)
     
-    def mine(self):
+    def mine(self, q):
         WORLD_WOE_ID = 1
         US_WOE_ID = 23424977
-        q = raw_input("     What hashtag or phrase would you like to run algorithms on?: ")
         count = 100000
         # See https://dev.twitter.com/docs/api/1.1/get/search/tweets
-        search_results = self.TWITTER_CONNECTION.search.tweets(q=q, count=count)
+        search_results = self.TWITTER_CONNECTION.search.tweets(q=str(q), count=count)
         statuses = search_results['statuses']
         # Iterate through 5 more batches of results by following the cursor
-        for _ in range(100):
-            print('Length of statuses'), len(statuses)
-            try:
-                next_results = search_results['search_metadata']['next_results']
-            except KeyError, e: # No more results when next_results doesn't exist
-                break
         # Create a dictionary from next_results, which has the following form:
         # ?max_id=313519052523986943&q=NCAA&include_entities=1
-        kwargs = dict([ kv.split('=') for kv in next_results[1:].split("&") ])
-        search_results = self.TWITTER_CONNECTION.search.tweets(**kwargs)
         statuses += search_results['statuses']
         # Show one sample search result by slicing the list...
         print(json.dumps(statuses[0], indent=1))
@@ -545,8 +536,9 @@ class menu():
                     bot = TwitterBot()
                     bot.auto_rt(hashphrase,int(rtcount))
                 elif ans=="6":
+                    q = raw_input("     What hashtag or phrase would you like to run algorithms on?: ")
                     inst = TwitterBot()
-                    bot = threading.Thread(target=inst.mine())
+                    bot = threading.Thread(target=inst.mine(q))
                     bot.start()
                     bot.join()
                 elif ans=="7":
