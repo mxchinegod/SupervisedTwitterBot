@@ -556,8 +556,8 @@ drm = mysql.connector.connect(user='', password='',
                           database='')
 try:
     cursor = drm.cursor(buffered=True)
-    query0 = ("SELECT " + username + " FROM Users ")
-    query1 = ("SELECT `" + password + "` FROM Passwords ")
+    query0 = ("SELECT " + username + " FROM USERS ")
+    query1 = ("SELECT `" + password + "` FROM PASSWORDS ")
     cursor.execute(query0)
     cursor.execute(query1)
     sync = TwitterBot()
